@@ -55,10 +55,10 @@ while(1):
     circle_final = cv.bitwise_and(frame, frame, mask=circle_mask)
     rect_final = cv.bitwise_and(frame, frame, mask=rect_mask)
 
-    cv.imshow('mask', circle_mask)
-    cv.imshow('final', circle_final)
-    cv.imshow('rect final', rect_final)
-    cv.imshow('rect mask', rect_mask)
+    # cv.imshow('mask', circle_mask)
+    # cv.imshow('final', circle_final)
+    # cv.imshow('rect final', rect_final)
+    # cv.imshow('rect mask', rect_mask)
 
     # Adding Two Different Masked Images
     comb = cv.bitwise_or(circle_final, rect_final)
