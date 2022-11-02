@@ -90,8 +90,8 @@ while True:
     x_dist = abs(x_points[0]-x_points[1])
     y_dist = abs(y_points[0]-y_points[1])
 
-    incline_angle = math.atan(y_dist/x_dist)
-    camera_angle = math.atan(z_dist/x_dist)
+    y_angle = math.atan(y_dist/x_dist)
+    x_angle = math.atan(z_dist/x_dist)
 
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
