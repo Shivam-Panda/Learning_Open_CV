@@ -31,17 +31,17 @@ def find_mean_point(approx):
 def distance_from_camera(area):
     return (area - y_int)/slope
 
-def nothing(x):
-    pass
+# def nothing(x):
+#     pass
 
-cv2.namedWindow('result')
-cv2.createTrackbar('h_low', 'result', 0, 179, nothing)
-cv2.createTrackbar('s_low', 'result', 0, 255, nothing)
-cv2.createTrackbar('v_low', 'result', 0, 255, nothing)
+# cv2.namedWindow('result')
+# cv2.createTrackbar('h_low', 'result', 0, 179, nothing)
+# cv2.createTrackbar('s_low', 'result', 0, 255, nothing)
+# cv2.createTrackbar('v_low', 'result', 0, 255, nothing)
 
-cv2.createTrackbar('h_upper', 'result', 0, 179, nothing)
-cv2.createTrackbar('s_upper', 'result', 0, 255, nothing)
-cv2.createTrackbar('v_upper', 'result', 0, 255, nothing)
+# cv2.createTrackbar('h_upper', 'result', 0, 179, nothing)
+# cv2.createTrackbar('s_upper', 'result', 0, 255, nothing)
+# cv2.createTrackbar('v_upper', 'result', 0, 255, nothing)
 
 areas = []
 
@@ -49,13 +49,13 @@ while True:
     _, frame = cap.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    h_low=  cv2.getTrackbarPos('h_low', 'result')
-    s_low=  cv2.getTrackbarPos('s_low', 'result')
-    v_low=  cv2.getTrackbarPos('v_low', 'result')
+    # h_low=  cv2.getTrackbarPos('h_low', 'result')
+    # s_low=  cv2.getTrackbarPos('s_low', 'result')
+    # v_low=  cv2.getTrackbarPos('v_low', 'result')
 
-    h_upper =  cv2.getTrackbarPos('h_upper', 'result')
-    s_upper =  cv2.getTrackbarPos('s_upper', 'result')
-    v_upper =  cv2.getTrackbarPos('v_upper', 'result')
+    # h_upper =  cv2.getTrackbarPos('h_upper', 'result')
+    # s_upper =  cv2.getTrackbarPos('s_upper', 'result')
+    # v_upper =  cv2.getTrackbarPos('v_upper', 'result')
 
     low_orange = np.array([18,82,186])
     high_orange = np.array([22,144,255])
@@ -81,17 +81,18 @@ while True:
             areas.append(area)
             cv2.drawContours(frame, [approx], 0, (0, 0, 0), 5)
 
-    z_dist = abs(dists[0]-dists[1])
-    x_points = []
-    y_points = []
-    for i in points:
-        x_points.append(i[0])
-        y_points.append(i[1])
-    x_dist = abs(x_points[0]-x_points[1])
-    y_dist = abs(y_points[0]-y_points[1])
+    if len(dists) > 1 and len(points) > 1:
+        z_dist = abs(dists[0]-dists[1])
+        x_points = []
+        y_points = []
+        for i in points:
+            x_points.append(i[0])
+            y_points.append(i[1])
+        x_dist = abs(x_points[0]-x_points[1])
+        y_dist = abs(y_points[0]-y_points[1])
 
-    y_angle = math.atan(y_dist/x_dist)
-    x_angle = math.atan(z_dist/x_dist)
+        y_angle = math.atan(y_dist/x_dist)
+        z_angle = math.atan(z_dist/y_dist)
 
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
